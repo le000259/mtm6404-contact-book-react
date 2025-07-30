@@ -5,7 +5,7 @@ import db from '../utils/db';
 import { useNavigate } from 'react-router';
 
 export default function AddContact() {
-    const [formData, setFormdata] = useState({
+    const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
         email: '',
@@ -15,7 +15,10 @@ export default function AddContact() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormdata({ ...formData, [name]: value });
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: value
+        }));
     }
 
     const handleSubmit = async (e) => {
@@ -41,6 +44,7 @@ export default function AddContact() {
                 <input
                     type="text"
                     id="firstName"
+                    name="firstName"
                     placeholder="First Name"
                     value={formData.firstName}
                     onChange={handleChange}
@@ -51,6 +55,7 @@ export default function AddContact() {
                 <input
                     type="text"
                     id="lastName"
+                    name="lastName"
                     placeholder="Last Name"
                     value={formData.lastName}
                     onChange={handleChange}
@@ -61,6 +66,7 @@ export default function AddContact() {
                 <input
                     type="email"
                     id="email"
+                    name="email"
                     placeholder="Email"
                     value={formData.email}
                     onChange={handleChange}
@@ -71,6 +77,7 @@ export default function AddContact() {
                 <input
                     type="tel"
                     id="phone"
+                    name="phone"
                     placeholder="Phone"
                     value={formData.phone}
                     onChange={handleChange}

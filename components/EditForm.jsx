@@ -2,18 +2,31 @@ import { useState, useEffect } from 'react';
 
 export const EditForm = ({ contact, onSave, onCancel}) => {
 
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: ''
+  });
 
   // Update formData when contact prop changes
   useEffect(() => {
     if (contact) {
-      setFormData(contact);
+      setFormData({
+        firstName: contact.firstName || '',
+        lastName: contact.lastName || '',
+        email: contact.email || '',
+        phone: contact.phone || ''
+      });
     }
   }, [contact]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -30,6 +43,7 @@ export const EditForm = ({ contact, onSave, onCancel}) => {
                 <input
                     type="text"
                     id="firstName"
+                    name="firstName"
                     placeholder="First Name"
                     value={formData.firstName}
                     onChange={handleChange}
@@ -40,6 +54,7 @@ export const EditForm = ({ contact, onSave, onCancel}) => {
                 <input
                     type="text"
                     id="lastName"
+                    name="lastName"
                     placeholder="Last Name"
                     value={formData.lastName}
                     onChange={handleChange}
@@ -50,6 +65,7 @@ export const EditForm = ({ contact, onSave, onCancel}) => {
                 <input
                     type="email"
                     id="email"
+                    name="email"
                     placeholder="Email"
                     value={formData.email}
                     onChange={handleChange}
@@ -60,6 +76,7 @@ export const EditForm = ({ contact, onSave, onCancel}) => {
                 <input
                     type="tel"
                     id="phone"
+                    name="phone"
                     placeholder="Phone"
                     value={formData.phone}
                     onChange={handleChange}
